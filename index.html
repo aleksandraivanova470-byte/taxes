@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Домашнее задание: Посчитай налоги двумя способами</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f7fa;
+            color: #1e2b3c;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 32px 40px;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 18px;
+            }
+            body {
+                padding: 10px;
+            }
+        }
+        h1 {
+            font-size: 1.9rem;
+            color: #0b3b5c;
+            margin-top: 0;
+            border-bottom: 3px solid #1e7e34;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #1e5a7a;
+            margin-top: 2rem;
+            margin-bottom: 0.6rem;
+            border-left: 5px solid #0b5ed7;
+            padding-left: 14px;
+        }
+        h3 {
+            font-size: 1.15rem;
+            color: #2e5a7a;
+            margin-top: 1.4rem;
+        }
+        .info-box {
+            background: #f0f7ff;
+            border-left: 5px solid #0b5ed7;
+            border-radius: 0 12px 12px 0;
+            padding: 14px 20px;
+            margin: 18px 0;
+        }
+        .info-box p {
+            margin: 6px 0;
+        }
+        .formula {
+            background: #eef6ff;
+            border: 1px solid #b8d4f0;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin: 14px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0b3b5c;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            font-size: 0.98rem;
+        }
+        table th {
+            background: #e9f0f7;
+            color: #0b3b5c;
+            font-weight: 600;
+            padding: 10px 12px;
+            border: 1px solid #b8c9d9;
+            text-align: center;
+        }
+        table td {
+            padding: 10px 12px;
+            border: 1px solid #d0dce8;
+            text-align: center;
+            vertical-align: middle;
+        }
+        table td.left {
+            text-align: left;
+        }
+        table tr:nth-child(even) {
+            background: #fafcfe;
+        }
+        .blank {
+            display: inline-block;
+            min-width: 70px;
+            border-bottom: 1.5px solid #5a7a9a;
+            margin: 0 4px;
+            height: 1.2em;
+        }
+        .blank-long {
+            min-width: 140px;
+        }
+        .highlight {
+            background: #fffde7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 8px 0 8px 34px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231e7e34' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") left center no-repeat;
+            border-bottom: 1px dashed #e0e8f0;
+        }
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        .answer-lines {
+            margin: 10px 0;
+        }
+        .answer-line {
+            border-bottom: 1px solid #b0c4d9;
+            padding: 14px 0 4px 0;
+            margin-bottom: 6px;
+        }
+        .footer-note {
+            margin-top: 36px;
+            padding-top: 18px;
+            border-top: 1px solid #dde5ed;
+            font-size: 0.9rem;
+            color: #6a7a8a;
+            text-align: center;
+        }
+        .no-print {
+            display: block;
+        }
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0.5cm;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .answer-line {
+                border-bottom-color: #333;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1> Домашнее задание: «Посчитай налоги двумя способами»</h1>
+
+ 
+
+    <h2>📋 Условие задачи</h2>
+    <p>Ты — владелец небольшой фирмы <strong>«Мастерская у дома»</strong>. За год фирма работала и получала доход, а также тратила деньги на расходы. Тебе нужно <strong>посчитать налоги по двум системам</strong> и <strong>сравнить</strong>, какая выгоднее.</p>
+
+    <h3>Результаты работы фирмы за год</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Квартал</th>
+                    <th>Доход, ₽</th>
+                    <th>Расходы, ₽</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>I</td><td>120 000</td><td>15 000</td></tr>
+                <tr><td>II</td><td>90 000</td><td>40 000</td></tr>
+                <tr><td>III</td><td>150 000</td><td>60 000</td></tr>
+                <tr><td>IV</td><td>100 000</td><td>25 000</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Ставки налогов</h3>
+    <ul>
+        <li><strong>УСН «Доходы»</strong> — <span class="highlight">6%</span> со всего дохода.</li>
+        <li><strong>УСН «Доходы минус расходы»</strong> — <span class="highlight">15%</span> с разницы (Доход − Расходы). Если расходы больше дохода — налог = 0 ₽.</li>
+    </ul>
+
+    <div class="formula">
+        УСН «Доходы»: &nbsp; Налог = Доход × 0,06<br>
+        УСН «Д−Р»: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Налог = (Доход − Расходы) × 0,15
+    </div>
+
+    <!-- ==================== ЧАСТЬ 1 ==================== -->
+    <h2>1️⃣ Система «Доходы» (6%)</h2>
+    <p>Заполни таблицу. Считай налог за каждый квартал отдельно.</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Квартал</th>
+                    <th>Доход, ₽</th>
+                    <th>Налог 6% = доход × 0,06, ₽</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>I</td><td>120 000</td><td></td></tr>
+                <tr><td>II</td><td>90 000</td><td></td></tr>
+                <tr><td>III</td><td>150 000</td><td></td></tr>
+                <tr><td>IV</td><td>100 000</td><td></td></tr>
+                <tr><td><strong>ИТОГО</strong></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p><strong>Вопрос:</strong> сколько всего налога фирма заплатила бы за год по этой системе?</p>
+    <p>Ответ: <span class="blank blank-long"></span> ₽</p>
+
+    <!-- ==================== ЧАСТЬ 2 ==================== -->
+    <h2>2️⃣ Система «Доходы минус расходы» (15%)</h2>
+    <p>Заполни таблицу.  Если в каком-то квартале расходы больше дохода — налог за этот квартал = 0 ₽</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Квартал</th>
+                    <th>Доход, ₽</th>
+                    <th>Расходы, ₽</th>
+                    <th>База (Д − Р), ₽</th>
+                    <th>Налог 15% = база × 0,15, ₽</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>I</td><td>120 000</td><td>15 000</td><td></td><td></td></tr>
+                <tr><td>II</td><td>90 000</td><td>40 000</td><td></td><td></td></tr>
+                <tr><td>III</td><td>150 000</td><td>60 000</td><td></td><td></td></tr>
+                <tr><td>IV</td><td>100 000</td><td>25 000</td><td></td><td></td></tr>
+                <tr><td><strong>ИТОГО</strong></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p><strong>Вопрос:</strong> сколько всего налога фирма заплатила бы за год по этой системе?</p>
+    <p>Ответ: <span class="blank blank-long"></span> ₽</p>
+
+    <!-- ==================== ЧАСТЬ 3 ==================== -->
+    <h2>3️⃣ Сравни результаты</h2>
+
+    <p><strong>1.</strong> По какой системе налог за год <strong>меньше</strong>? На сколько ₽?</p>
+    <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+    </div>
+
+    <p><strong>2.</strong> Какая система <strong>выгоднее</strong> твоей фирме? Почему?</p>
+    <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+    </div>
+
+    <p><strong>3.</strong> <strong>Проверь себя:</strong> посчитай, при каком <strong>суммарном расходе за год</strong> обе системы дали бы одинаковый налог.</p>
+    <p style="font-size:0.95rem; color:#4a6a8a;"><em>Подсказка: приравняй 0,06 × Доход = 0,15 × (Доход − Расходы) и найди Расходы.</em></p>
+    <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+    </div>
+
+    <!-- ==================== ЧАСТЬ 4 ==================== -->
+    <h2>4️⃣ Сделай вывод</h2>
+    <p>Напиши <strong>3–5 предложений</strong>: какую систему ты бы выбрал(а) для фирмы и почему.</p>
+    <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+    </div>
+
+    <!-- ==================== ДОП. ЗАДАНИЕ ==================== -->
+    <h2>⭐ Дополнительное задание (со звёздочкой)</h2>
+    <p>В следующем году фирма планирует <strong>увеличить расходы до 200 000 ₽</strong>, а доход оставить прежним. Пересчитай налог по обеим системам для такого года и скажи: изменится ли твой выбор системы?</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Система</th>
+                    <th>Доход, ₽</th>
+                    <th>Расходы, ₽</th>
+                    <th>Налог, ₽</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="left">УСН «Доходы» (6%)</td><td></td><td></td><td></td></tr>
+                <tr><td class="left">УСН «Д−Р» (15%)</td><td></td><td></td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="answer-lines">
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+        <div class="answer-line"></div>
+    </div>
+
+    <!-- ==================== ЧТО СДАТЬ ==================== -->
+    <h2>📤 Что сдать</h2>
+    <ul class="checklist">
+        <li>Заполненные таблицы по двум системам (части 1 и 2).</li>
+        <li>Ответы на вопросы части 3.</li>
+        <li>Вывод (часть 4).</li>
+        <li>(По желанию) решение задания со звёздочкой.</li>
+    </ul>
+
+  
+
+   
+
+</div>
+</body>
+</html>
